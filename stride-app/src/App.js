@@ -1,23 +1,34 @@
-import logo from './logo.svg';
+//import {Route, Routes} from 'react-router-dom';
 import './App.css';
+import React, { useEffect } from "react"
+
+import Navbar from "./components/Navbar"
+import Description from "./components/Description"
+import Instructions from "./components/Instructions"
+import Map from "./components/Map"
+import ROI from "./components/ROI"
 
 function App() {
+  
+    // Attach the scroll listener to the div
+    useEffect(() => {
+      const menu = document.querySelector('.nav');
+      if(menu) {
+      window.addEventListener('scroll', () => {
+        if(window.scrollY > 50) {
+            menu.classList.add('nav-scrolled');
+        } else if (window.scrollY < 50) {
+            menu.classList.remove('nav-scrolled');
+        }
+      })}})
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Navbar />
+      <Description />
+      <Instructions />
+      <Map />
+      <ROI />
     </div>
   );
 }
