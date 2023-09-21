@@ -19,7 +19,7 @@ body {
   justify-content: space-between;
   align-items: stretch;
   gap: 2rem;
-  padding: 2rem 3rem;
+  padding: 1rem 4rem;
   position: fixed;
   top: 0;
   width: 100%;
@@ -35,7 +35,7 @@ body {
   margin: 0;
   list-style: none;
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
   font-size:1.25rem;
 }
 
@@ -53,5 +53,9 @@ body {
 }
 
 #stride_logo {
-  width: 90px;
+  width: 150px;
+}
+
+html {
+  scroll-behavior: smooth;
 }
