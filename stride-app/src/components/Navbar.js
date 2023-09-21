@@ -3,16 +3,6 @@ import logo from '../images/logo_nobg_1.png';
 
 const Navbar = () => {
 
-    const menu = document.querySelector('.nav');
-    
-    window.addEventListener('scroll', () => {
-        if(window.scrollY > 50) {
-            menu.classList.add('nav-scrolled');
-        } else if (window.scrollY < 50) {
-            menu.classList.remove('nav-scrolled');
-        }
-    })
-
     return(
         <nav className="nav">
             <a className="title" href="https://www.stridefunding.com/" target="_blank" rel="noreferrer noopener">
