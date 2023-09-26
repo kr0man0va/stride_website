@@ -7,6 +7,7 @@ import Description from "./components/Description"
 import Instructions from "./components/Instructions"
 import Map from "./components/Map"
 import ROI from "./components/ROI"
+import Footer from "./components/Footer"
 
 function App() {
   
@@ -29,6 +30,7 @@ function App() {
       <Instructions />
       <Map />
       <ROI />
+      <Footer />
     </div>
   );
 }

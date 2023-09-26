@@ -59,3 +59,43 @@ body {
 html {
   scroll-behavior: smooth;
 }
+
+.footer {
+  background-color: rgb(57,40,101);
+  color: white;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 3rem 4rem;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer a {
+  color: inherit;
+  text-decoration: none;
+  height: 100%;
+  padding: .25rem;
+  display: flex;
+  align-items: center;
+}
+
+.footer ul {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  gap: 2rem;
+}
+
+.footer p {
+  display: flex;
+  text-align: left;
+}
+
+.par {
+  font-size: 1.25rem;
+}
+
+.cop {
+  color: rgb(173,166,192);
+}
