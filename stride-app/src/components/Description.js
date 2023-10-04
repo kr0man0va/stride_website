@@ -1,11 +1,12 @@
 import React from 'react';
-import logo from '../images/react.png';
+import logo from '../images/stride_climb.svg';
 
 const Description = () => {
     return(
         <div id="description">
-            Description
-            <img src={logo} alt='React'></img>
+            <h1>Your Journey to Success Starts Here!</h1>
+            <p>Unleash your potential using Personalized Education and Career Guidance Powered by Stride.</p>
+            <img href={logo}></img>
         </div>
     );
 }
