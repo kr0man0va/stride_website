@@ -7,8 +7,7 @@
 }
 
 body {
-  margin: 0;
-  margin-top: 105px;
+  margin-top: 87px;
   font-family: 'Open Sans', sans-serif;
 }
 
@@ -66,7 +65,7 @@ html {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 3rem 4rem;
+  padding: 1rem 4rem;
   bottom: 0;
   width: 100%;
 }
@@ -81,8 +80,6 @@ html {
 }
 
 .footer ul {
-  padding: 0;
-  margin: 0;
   list-style: none;
   gap: 2rem;
 }
@@ -98,4 +95,61 @@ html {
 
 .cop {
   color: rgb(173,166,192);
+}
+
+#description {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-image: url('./images/stride_climb.svg');
+  background-repeat: no-repeat;
+  min-height: 50rem;
+  background-position-x: right;
+}
+
+.text {
+  text-align: left;
+  max-width: 40rem;
+  margin-right: 30rem;
+}
+
+.text h1 {
+  color: rgb(86,29,226);
+  font-size: 3.5rem;
+}
+
+.text p {
+  font-size: 1.5rem;
+}
+
+#instructions {
+  background-color: rgb(245,245,245);
+  padding: 5rem;
+}
+
+#instructions h1 {
+  font-size: 3rem;
+  margin: 0;
+}
+
+#instructions h2 {
+  color: rgb(86,29,226);
+  font-size: 2rem;
+  margin: 0;
+}
+
+#instructions p {
+  font-size: 1.75rem;
+}
+
+#steps {
+  display: flex;
+  align-items:flex-start;
+  justify-content: center;
+}
+
+#steps div {
+  width: 30%;
+  padding: 5rem 1% 0rem 1%;
+  margin: 0% 4%;
 }
