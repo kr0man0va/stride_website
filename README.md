@@ -1,4 +1,6 @@
-# Getting Started with Create React App
+# Stride Funding Web App
+
+The Stride Funding web tool allows students to explore educational programs and career paths based on return on investment (ROI) and employment opportunity. It does this by leveraging proprietary data on school and program outcomes, combined with publicly available sector and employment data by industry and geography.
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
