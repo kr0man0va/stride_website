@@ -27,7 +27,7 @@ const ROI = () => {
         fetchData();
     }, []);
 
-    const columns = parsedData.length > 0 ? Object.keys(parsedData[0]).filter((key) => key.trim() !== 'Latitude' && key.trim() !== 'Longitude').map((key) => ({
+    const columns = parsedData.length > 0 ? Object.keys(parsedData[0]).filter((key) => key.trim() !== 'Latitude' && key.trim() !== 'Longtitude' && key.trim() !== 'CIP' && key.trim() !== 'ID').map((key) => ({
         label: key,
         field: key,
       })) : [];
