@@ -1,18 +1,20 @@
-//import {Route, Routes} from 'react-router-dom';
 import './App.css';
-import React, { useEffect } from "react"
+import React, { useEffect, useState } from "react"
 
 import Navbar from "./components/Navbar"
 import Description from "./components/Description"
 import Instructions from "./components/Instructions"
-import Map from "./components/Map"
+import Filters from "./components/Filters"
 import ROI from "./components/ROI"
 import Footer from "./components/Footer"
 
+import * as xlsx from "xlsx";
+import exampleFile from './context/state_M2019_dl.xlsx';
+
 function App() {
   
-    // Attach the scroll listener to the div
-    useEffect(() => {
+  // Attach the scroll listener to the div
+  useEffect(() => {
       const menu = document.querySelector('.nav');
       if(menu) {
       window.addEventListener('scroll', () => {
@@ -21,15 +23,37 @@ function App() {
         } else if (window.scrollY < 50) {
             menu.classList.remove('nav-scrolled');
         }
-      })}})
+  })}})
+
+  const [parsedData, setParsedData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+    const response = await fetch(exampleFile);
+    const arrayBuffer = await response.arrayBuffer();
+    const data = new Uint8Array(arrayBuffer);
+
+    const workbook = xlsx.read(data, { type: 'array' });
+    const sheetName = workbook.SheetNames[6];
+    const worksheet = workbook.Sheets[sheetName];
+    const jsonData = xlsx.utils.sheet_to_json(worksheet, { raw: false });
+
+    setParsedData(jsonData);
+
+    setFilteredData(jsonData);
+    };
+    
+    fetchData();
+  }, []);
 
   return (
     <div className="App">
       <Navbar />
       <Description />
       <Instructions />
-      <Map />
-      <ROI />
+      <Filters parsedData={parsedData} setFilteredData={setFilteredData}/>
+      <ROI parsedData={filteredData}/>
       <Footer />
     </div>
   );

@@ -16,7 +16,7 @@ const Navbar = () => {
                     <a href="#instructions">Instructions</a>
                 </li>
                 <li>
-                    <a href="#map">Map</a>
+                    <a href="#filters">Form</a>
                 </li>
                 <li>
                     <a href="#roi">ROI</a>

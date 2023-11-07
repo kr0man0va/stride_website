@@ -37,6 +37,7 @@ body {
   display: flex;
   gap: 2rem;
   font-size:1.25rem;
+  font-weight: 400;
 }
 
 .nav a {
@@ -48,12 +49,13 @@ body {
   padding: .25rem;
 }
 
-.nav li:hover {
+.nav a:hover {
   color: rgb(86,29,226);
 }
 
 #stride_logo {
   width: 150px;
+  margin-left: 3rem;
 }
 
 html {
@@ -108,6 +110,10 @@ html {
   background-position-x: right;
 }
 
+#name {
+  font-weight: 400;
+}
+
 .text {
   text-align: left;
   max-width: 40rem;
@@ -117,6 +123,7 @@ html {
 .text h1 {
   color: rgb(86,29,226);
   font-size: 3.5rem;
+  font-weight: 500;
 }
 
 .text p {
@@ -130,17 +137,20 @@ html {
 
 #instructions h1 {
   font-size: 3rem;
+  font-weight: 400;
   margin: 0;
 }
 
 #instructions h2 {
   color: rgb(86,29,226);
   font-size: 2rem;
+  font-weight: 500;
+  padding-bottom: 20px;
   margin: 0;
 }
 
 #instructions p {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
 }
 
 #steps {
@@ -153,4 +163,31 @@ html {
   width: 30%;
   padding: 5rem 1% 0rem 1%;
   margin: 0% 4%;
+}
+
+#filters {
+  display: flex;
+  flex-direction: column;
+  margin: 5rem 20%;
+}
+
+#description a {
+  background-color: rgb(86,29,226);
+  color: white;
+  padding: 20px 80px;
+  border: none;
+  border-radius: 40px;
+  font-size: 1.5rem;
+}
+
+#description a:hover {
+  background-color: rgb(118, 79, 218);
+}
+
+#description p {
+  margin-bottom: 40px;
+}
+
+#roi {
+  margin: 2% 5%;
 }
