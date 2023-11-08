@@ -221,6 +221,11 @@ html {
   width: 99.5%;
 }
 
+.solid2 {
+  border: 3px solid rgb(245,245,245); 
+  width: 75%;
+}
+
 .filter {
   display: flex;
   padding: 2rem 0;
@@ -269,3 +274,33 @@ html {
   padding: 3rem 1rem;
   padding-top: 1.5rem;
 }
+
+#res {
+  font-size: 3rem;
+  font-weight: 400;
+  margin: 0;
+  padding-bottom: 1rem;
+  color: rgb(86,29,226);
+}
+
+#choose {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+#choose h2 {
+  font-weight: 500;
+  padding: 0px 10px;
+}
+
+#choose h3 {
+  font-weight: 500;
+  padding: 0px 10px;
+}
+
+#choose h2:hover {
+  cursor: pointer;
+  color: rgb(133, 133, 133);
+}
+
