@@ -7,6 +7,7 @@ import Instructions from "./components/Instructions"
 import Filters from "./components/Filters"
 import ROI from "./components/ROI"
 import Footer from "./components/Footer"
+import Map from "./components/Map"
 
 import * as xlsx from "xlsx";
 import exampleFile from './context/state_M2019_dl.xlsx';
@@ -30,6 +31,8 @@ function App() {
 
   const [clicked, setClicked] = useState(false);
 
+  const [map, setMap] = useState(true);
+
   useEffect(() => {
     const fetchData = async () => {
     const response = await fetch(exampleFile);
@@ -49,13 +52,38 @@ function App() {
     fetchData();
   }, []);
 
+  const newStyle = {
+    color: map ? 'rgb(86,29,226)' : 'rgb(133, 133, 133)',
+  };
+
+  const newStyle2 = {
+    color: map ? 'rgb(133, 133, 133)' : 'rgb(86,29,226)',
+  };
+
   return (
     <div className="App">
       <Navbar />
       <Description />
       <Instructions />
       <Filters parsedData={parsedData} setFilteredData={setFilteredData} setClicked={setClicked}/>
-      <ROI parsedData={filteredData} clicked={clicked}/>
+      {clicked ? (
+        <div>
+          <h1 id="res">View Results</h1>
+          {map ? (
+            <p>Explore your educational options by interacting with different markers on the map.</p>) : (
+            <p>Explore your educational options by viewing and searching the table.</p>)
+          }
+          <hr className="solid2"></hr>
+          <div id="choose">
+            <h2 style={newStyle} onClick={() => setMap(true)}>Map</h2>
+            <h3>|</h3>
+            <h2 style={newStyle2} onClick={() => setMap(false)}>Table</h2>
+          </div>
+          {map ? (
+            <Map />
+            ) : (<ROI parsedData={filteredData} clicked={clicked}/>)}
+        </div>
+      ) : null}
       <Footer />
     </div>
   );
