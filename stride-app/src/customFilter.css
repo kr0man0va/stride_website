@@ -1,0 +1,23 @@
+.input-range__slider {
+    transition: none;
+}
+  
+.input-range__slider-container {
+    transition: none;
+}
+  
+.input-range__track {
+    transition: none;
+}
+  
+.input-range__label--min, .input-range__label--max {
+    transition: none;
+}
+  
+.input-range__label--value {
+    transition: none;
+}
+
+.input-range {
+    margin-top: 1rem;
+}
