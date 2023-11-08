@@ -28,6 +28,8 @@ function App() {
   const [parsedData, setParsedData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
+  const [clicked, setClicked] = useState(false);
+
   useEffect(() => {
     const fetchData = async () => {
     const response = await fetch(exampleFile);
@@ -52,8 +54,8 @@ function App() {
       <Navbar />
       <Description />
       <Instructions />
-      <Filters parsedData={parsedData} setFilteredData={setFilteredData}/>
-      <ROI parsedData={filteredData}/>
+      <Filters parsedData={parsedData} setFilteredData={setFilteredData} setClicked={setClicked}/>
+      <ROI parsedData={filteredData} clicked={clicked}/>
       <Footer />
     </div>
   );

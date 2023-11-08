@@ -53,7 +53,7 @@ body {
   color: rgb(86,29,226);
 }
 
-#stride_logo {
+.nav img {
   width: 150px;
   margin-left: 3rem;
 }
@@ -68,7 +68,7 @@ html {
   display: flex;
   justify-content: space-around;
   align-items: center;
-  padding: 1rem 4rem;
+  padding: 2rem 4rem;
   bottom: 0;
   width: 100%;
 }
@@ -132,17 +132,17 @@ html {
 
 #instructions {
   background-color: rgb(245,245,245);
-  padding: 5rem;
+  padding: 3rem 5rem;
 }
 
 #instructions h1 {
+  color: rgb(86,29,226);
   font-size: 3rem;
   font-weight: 400;
   margin: 0;
 }
 
 #instructions h2 {
-  color: rgb(86,29,226);
   font-size: 2rem;
   font-weight: 500;
   padding-bottom: 20px;
@@ -168,7 +168,10 @@ html {
 #filters {
   display: flex;
   flex-direction: column;
-  margin: 5rem 20%;
+  max-width: 1150px;
+  padding-left: 60px;
+  padding-right: 60px;
+  margin: 5rem auto;
 }
 
 #description a {
@@ -190,4 +193,79 @@ html {
 
 #roi {
   margin: 2% 5%;
+}
+
+#filters h1 {
+  font-size: 3rem;
+  font-weight: 400;
+  margin: 0;
+  padding-bottom: 1rem;
+  color: rgb(86,29,226);
+}
+
+#filters h2 {
+  font-size: 1.5rem;
+}
+
+#filters h3 {
+  font-weight: 400;
+  font-size: 1.3rem;
+}
+
+#filters p {
+  font-size: 1.3rem;
+}
+
+.solid {
+  border: 3px solid rgb(245,245,245); 
+  width: 99.5%;
+}
+
+.filter {
+  display: flex;
+  padding: 2rem 0;
+  flex-direction: column;
+  margin: 0 55px;
+}
+
+#drops {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  text-align: left;
+}
+
+#filters button {
+  background-color: rgb(86,29,226);
+  color: white;
+  padding: 20px 80px;
+  border: none;
+  border-radius: 40px;
+  font-size: 1.5rem;
+}
+
+#filters button:hover {
+  background-color: rgb(118, 79, 218);
+}
+
+.alignSlider {
+  display: flex;
+  padding: 2rem 0;
+  margin: 0 55px;
+  flex-direction: column;
+  text-align: left;
+}
+
+.align {
+  display: flex;
+}
+
+.select {
+  width: 14rem;
+}
+
+#col {
+  background-color: rgb(245,245,245);
+  padding: 3rem 1rem;
+  padding-top: 1.5rem;
 }

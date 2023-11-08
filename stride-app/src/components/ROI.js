@@ -6,7 +6,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
-const ROI = ({parsedData}) => {
+const ROI = ({parsedData, clicked}) => {
 
   // const [parsedData, setParsedData] = useState([]);
 
@@ -39,8 +39,9 @@ const ROI = ({parsedData}) => {
     
   return (
     <div id="roi">
-      {parsedData.length > 0 ? (<MDBDataTable responsive striped bordered small data={data} paging />) :
-      (<p>No results were found. Please try again!</p>)}
+      {clicked ? (parsedData.length > 0 ?
+                    (<MDBDataTable responsive striped bordered small data={data} paging />) :
+                    (<p>No results were found. Please try again!</p>)) : null}
     </div>
   );
 };

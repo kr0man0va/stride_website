@@ -17,3 +17,7 @@
 .input-range__label--value {
     transition: none;
 }
+
+.input-range {
+    margin-top: 1rem;
+}
