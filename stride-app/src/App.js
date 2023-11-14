@@ -7,7 +7,7 @@ import Instructions from "./components/Instructions"
 import Filters from "./components/Filters"
 import ROI from "./components/ROI"
 import Footer from "./components/Footer"
-import Map from "./components/Map"
+import MapC from "./components/MapC"
 
 import * as xlsx from "xlsx";
 import exampleFile from './context/state_M2019_dl.xlsx';
@@ -80,8 +80,8 @@ function App() {
             <h2 style={newStyle2} onClick={() => setMap(false)}>Table</h2>
           </div>
           {map ? (
-            <Map />
-            ) : (<ROI parsedData={filteredData} clicked={clicked}/>)}
+            <MapC filteredData={filteredData}/>
+          ) : (<ROI parsedData={filteredData} clicked={clicked}/>)}
         </div>
       ) : null}
       <Footer />
