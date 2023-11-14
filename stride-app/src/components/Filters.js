@@ -4,6 +4,9 @@ import 'react-input-range/lib/css/index.css';
 import '../customFilter.css';
 import Select from 'react-select';
 
+import { Tooltip } from 'react-tooltip';
+import question from '../images/Question.png';
+
 const Filters = ({parsedData, setFilteredData, setClicked}) => {
     
     const [educationType, setEducationType] = useState('Show All');
@@ -61,7 +64,16 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
             <div id="col">
                 <div id="drops">
                     <div className="filter">
-                        <h3>Program Type</h3>
+                        <div className="align">
+                            <h3>Program Type</h3>
+                            <img src={question} alt='Question mark' style={{width:'30px', height: '30px', margin:'0 5px'}}
+                                data-tooltip-id="my-tooltip"
+                                data-tooltip-content="
+                                Program Type identifies whether an institution is public or private and specifies if it offers 2-year or 4-year programs.
+                                "
+                                data-tooltip-place="top"/>
+                            <Tooltip id="my-tooltip" arrowColor="rgb(86,29,226)" style={{backgroundColor:"rgb(86,29,226)", maxWidth:"400px", color:"white", zIndex:"900", borderRadius:"20px", fontWeight:"400"}}/>
+                        </div>
                         <Select className="select"
                             isSearchable = {true} maxMenuHeight={150}
                             value={{ value: educationType, label: educationType }}
@@ -71,7 +83,15 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                     </div>
                     {/* Filter Major */}
                     <div className="filter">
-                        <h3>Major</h3>
+                        <div className="align">
+                            <h3>Major</h3>
+                            <img src={question} alt='Question mark' style={{width:'30px', height: '30px', margin:'0 5px'}}
+                                    data-tooltip-id="my-tooltip"
+                                    data-tooltip-content="
+                                    Major represents the primary field of study or specialization offered by an educational institution.
+                                    "
+                                    data-tooltip-place="top"/>
+                        </div>        
                         <Select
                             className="select"
                             isSearchable = {true} maxMenuHeight={150}
@@ -85,7 +105,15 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                     </div>
                     {/* Filter State */}
                     <div className="filter">
-                        <h3>State</h3>
+                        <div className="align">
+                            <h3>State</h3>
+                            <img src={question} alt='Question mark' style={{width:'30px', height: '30px', margin:'0 5px'}}
+                                    data-tooltip-id="my-tooltip"
+                                    data-tooltip-content="
+                                    State denotes the geographical location of the educational institution.
+                                    "
+                                    data-tooltip-place="top"/>
+                        </div> 
                         <Select
                             className="select"
                             isSearchable = {true} maxMenuHeight={150}
@@ -101,7 +129,15 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                 {/* Filter Tuition */}
                 <div>
                     <div className="alignSlider">
-                        <h3>Tuition</h3>
+                        <div className="align">
+                            <h3>Tuition</h3>
+                            <img src={question} alt='Question mark' style={{width:'30px', height: '30px', margin:'0 5px'}}
+                                    data-tooltip-id="my-tooltip"
+                                    data-tooltip-content="
+                                    Tuition refers to the cost range associated with attending the educational institution. All values are in U.S. dollars.
+                                    "
+                                    data-tooltip-place="top"/>
+                        </div> 
                         <InputRange maxValue={100000}
                                     minValue={0}
                                     value={tuition}
@@ -131,7 +167,15 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                 </div>
                 {/* Filter Cost of Living */}
                 <div className="alignSlider">
-                    <h3>Cost of Living</h3>
+                        <div className="align">
+                            <h3>Cost of Living Index</h3>
+                            <img src={question} alt='Question mark' style={{width:'30px', height: '30px', margin:'0 5px'}}
+                                    data-tooltip-id="my-tooltip"
+                                    data-tooltip-content="
+                                    The Cost of Living Index represents the relative expenses associated with residing in the area where the educational institution is located. It factors in accommodation, food, transportation, and other essential living costs. A higher index indicates a relatively higher cost of living in that region.
+                                    "
+                                    data-tooltip-place="top"/>
+                        </div> 
                     <InputRange maxValue={180}
                                 minValue={85}
                                 value={costLiving}
@@ -151,7 +195,15 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                 /> */}
                 {/* Filter Salary */}
                 <div className="alignSlider">
-                    <h3>Average Salary</h3>
+                        <div className="align">
+                            <h3>Average Salary</h3>
+                            <img src={question} alt='Question mark' style={{width:'30px', height: '30px', margin:'0 5px'}}
+                                    data-tooltip-id="my-tooltip"
+                                    data-tooltip-content="
+                                    Average Salary signifies the median income earned by graduates from the educational institution. It provides insights into the potential earnings one might expect after completing a program. A higher average salary often reflects better career prospects and financial outcomes for graduates.
+                                    "
+                                    data-tooltip-place="top"/>
+                        </div> 
                     <InputRange maxValue={300000}
                                 minValue={0}
                                 value={salary}
@@ -161,7 +213,15 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                 </div>
                 {/* Filter ROI */}
                 <div className="alignSlider">
-                    <h3>ROI</h3>
+                        <div className="align">
+                            <h3>ROI</h3>
+                            <img src={question} alt='Question mark' style={{width:'30px', height: '30px', margin:'0 5px'}}
+                                    data-tooltip-id="my-tooltip"
+                                    data-tooltip-content="
+                                    ROI, or Return on Investment, is a metric that evaluates the profitability and financial gain of participating in a program. It considers factors such as tuition costs, living expenses, and average salary after graduation. A higher ROI indicates a potentially more lucrative investment in education, emphasizing the long-term value of the institution in relation to its associated costs.
+                                    "
+                                    data-tooltip-place="top"/>
+                        </div> 
                     <InputRange maxValue={1200}
                                 minValue={0}
                                 value={roi}

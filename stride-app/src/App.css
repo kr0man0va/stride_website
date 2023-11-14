@@ -316,3 +316,7 @@ html {
 }
 
 .bolded { font-weight: bold; }
+
+.align {
+  flex-direction: row;
+}
