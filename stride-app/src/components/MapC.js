@@ -33,12 +33,12 @@ const MapC = ({filteredData}) => {
                 <Popup>
                   <div>
                     <h3>{marker.University}</h3>
-                    <p><span class='bolded'>Type:</span> {marker.Type}</p>
-                    <p><span class='bolded'>Major:</span> {marker.Major}</p>
-                    <p><span class='bolded'>In-State Tuition:</span> {marker['In-state Tuition']}</p>
-                    <p><span class='bolded'>Cost of Living Index:</span> {marker['Cost of Living Index']}</p>
-                    <p><span class='bolded'>Average Salary:</span> {marker['Average Salary']}</p>
-                    <p><span class='bolded'>In-State ROI:</span> {marker['In-state ROI']}</p>
+                    <p><span className='bolded'>Type:</span> {marker.Type}</p>
+                    <p><span className='bolded'>Major:</span> {marker.Major}</p>
+                    <p><span className='bolded'>In-State Tuition:</span> {marker['In-state Tuition']}</p>
+                    <p><span className='bolded'>Cost of Living Index:</span> {marker['Cost of Living Index']}</p>
+                    <p><span className='bolded'>Average Salary:</span> {marker['Average Salary']}</p>
+                    <p><span className='bolded'>In-State ROI:</span> {marker['In-state ROI']}</p>
                   </div>
                 </Popup>
               </Marker>

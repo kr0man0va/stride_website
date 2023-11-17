@@ -34,6 +34,7 @@ function App() {
   const [map, setMap] = useState(true);
 
   useEffect(() => {
+    const startTime = performance.now();
     const fetchData = async () => {
     const response = await fetch(exampleFile);
     const arrayBuffer = await response.arrayBuffer();
@@ -47,6 +48,9 @@ function App() {
     setParsedData(jsonData);
 
     setFilteredData(jsonData);
+
+    const endTime = performance.now();
+    console.log(`Conversion took ${(endTime - startTime)/1000} seconds`);
     };
     
     fetchData();
@@ -65,15 +69,25 @@ function App() {
       <Navbar />
       <Description />
       <Instructions />
-      <Filters parsedData={parsedData} setFilteredData={setFilteredData} setClicked={setClicked}/>
-      {clicked ? (
-        <div>
-          <h1 id="res">View Results</h1>
-          {map ? (
-            <p>Explore your educational options by interacting with different markers on the map.</p>) : (
-            <p>Explore your educational options by viewing and searching the table.</p>)
-          }
+      <div id='styleHeading'>
+        <h1>What do you want to explore?</h1>
+        <h2>Fill out the fields below to receive your free return-on-investment calculations
+            for educational opportunities around United States. Press filter button to view 
+            your personalized results.
+        </h2>
+      </div>
+      <div id='changePlace'>
+        <Filters parsedData={parsedData} setFilteredData={setFilteredData} setClicked={setClicked}/>
+      {/* {clicked ? ( */}
+        <div style={{width:'100%'}}>
+          <div className='dissapear'>
+            <h1 id="res">View Results</h1>
+            {map ? (
+              <p>Explore your educational options by interacting with different markers on the map.</p>) : (
+              <p>Explore your educational options by viewing and searching the table.</p>)
+            }
           <hr className="solid2"></hr>
+          </div>
           <div id="choose">
             <h2 style={newStyle} onClick={() => setMap(true)}>Map</h2>
             <h3>|</h3>
@@ -83,7 +97,8 @@ function App() {
             <MapC filteredData={filteredData}/>
           ) : (<ROI parsedData={filteredData} clicked={clicked}/>)}
         </div>
-      ) : null}
+    </div>
+      {/* ) : null} */}
       <Footer />
     </div>
   );

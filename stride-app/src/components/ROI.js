@@ -39,9 +39,11 @@ const ROI = ({parsedData, clicked}) => {
     
   return (
     <div id="roi">
-      {clicked ? (parsedData.length > 0 ?
+      {/* {clicked ?  */}
+                {(parsedData.length > 0 ?
                     (<MDBDataTable responsive striped bordered small data={data} paging />) :
-                    (<p>No results were found. Please try again!</p>)) : null}
+                    (<p>No results were found. Please try again!</p>))} 
+                    {/* : null} */}
     </div>
   );
 };
