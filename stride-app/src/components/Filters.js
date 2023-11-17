@@ -54,18 +54,19 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
 
     return(
         <div id="filters">
-            <h1>Tell Us About Your Preferences</h1>
+            {/* <h1>Tell Us About Your Preferences</h1>
             <h2>Fill out the fields below to receive your free return-on-investment calculations
                 for educational opportunities around United States. Press filter button to view 
                 your personalized results.
-            </h2>
-            <hr className="solid"></hr>
+            </h2> */}
+            <hr className="solid dissapear"></hr>
             {/* Filter Program Type */}
             <div id="col">
+                <h2>What program are you interested in?</h2>
                 <div id="drops">
                     <div className="filter">
                         <div className="align">
-                            <h3>Program Type</h3>
+                            <h3>Type</h3>
                             <img src={question} alt='Question mark' style={{width:'30px', height: '30px', margin:'0 5px'}}
                                 data-tooltip-id="my-tooltip"
                                 data-tooltip-content="
@@ -128,6 +129,7 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                 </div>
                 {/* Filter Tuition */}
                 <div>
+                    <h2>Refine your search</h2>
                     <div className="alignSlider">
                         <div className="align">
                             <h3>Tuition</h3>
@@ -240,7 +242,7 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                     onChange={(e) => setROI({ ...roi, max: e.target.value })}
                 /> */}
             </div>
-            <hr className="solid"></hr>
+            <hr className="solid dissapear"></hr>
             <button onClick={handleApplyFilters}>Filter</button>
         </div>
     );
