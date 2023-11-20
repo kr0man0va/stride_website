@@ -16,10 +16,15 @@ const MapC = ({filteredData}) => {
   return (
     <div id='mapc'>
       <MapContainer center={[37.0902, -95.7129]} zoom={4}>
-        <TileLayer
+        {/* <TileLayer
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
-        </TileLayer>
+        </TileLayer> */}
+
+        <TileLayer
+          attribution="CartoDB Voyager"
+          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
+        />
 
         <MarkerClusterGroup chunkedLoading>
           {filteredData
