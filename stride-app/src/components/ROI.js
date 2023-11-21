@@ -8,26 +8,14 @@ import 'mdbreact/dist/css/mdb.css';
 
 const ROI = ({parsedData, clicked}) => {
 
-  // const [parsedData, setParsedData] = useState([]);
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //   const response = await fetch(exampleFile);
-  //   const arrayBuffer = await response.arrayBuffer();
-  //   const data = new Uint8Array(arrayBuffer);
-
-  //   const workbook = xlsx.read(data, { type: 'array' });
-  //   const sheetName = workbook.SheetNames[6];
-  //   const worksheet = workbook.Sheets[sheetName];
-  //   const jsonData = xlsx.utils.sheet_to_json(worksheet, { raw: false });
-
-  //   setParsedData(jsonData);
-  //   };
-    
-  //   fetchData();
-  // }, []);
-
-  const columns = parsedData.length > 0 ? Object.keys(parsedData[0]).filter((key) => key.trim() !== 'Latitude' && key.trim() !== 'Longtitude' && key.trim() !== 'CIP' && key.trim() !== 'ID').map((key) => ({
+  const columns = parsedData.length > 0 ? Object.keys(parsedData[0]).filter((key) => 
+                  key.trim() !== 'Latitude' &&
+                  key.trim() !== 'Longitude' &&
+                  key.trim() !== 'CIPCODE' &&
+                  key.trim() !== 'CREDLEV' &&
+                  key.trim() !== 'CREDDESC' &&
+                  key.trim() !== 'SOC' &&
+                  key.trim() !== 'Occ_title').map((key) => ({
     label: key,
     field: key,
   })) : [];
@@ -41,7 +29,7 @@ const ROI = ({parsedData, clicked}) => {
     <div id="roi">
       {/* {clicked ?  */}
                 {(parsedData.length > 0 ?
-                    (<MDBDataTable responsive striped bordered small data={data} paging />) :
+                    (<MDBDataTable responsive striped bordered small data={data} paging noBottomColumns={true}/>) :
                     (<p>No results were found. Please try again!</p>))} 
                     {/* : null} */}
     </div>

@@ -10,7 +10,8 @@ import Footer from "./components/Footer"
 import MapC from "./components/MapC"
 
 import * as xlsx from "xlsx";
-import exampleFile from './context/state_M2019_dl.xlsx';
+// import exampleFile from './context/state_M2019_dl.xlsx';
+import exampleFile from './context/Stride_Funding_data.xlsx';
 
 function App() {
   
@@ -45,9 +46,17 @@ function App() {
     const worksheet = workbook.Sheets[sheetName];
     const jsonData = xlsx.utils.sheet_to_json(worksheet, { raw: false });
 
-    setParsedData(jsonData);
+    const allFields = Array.from(new Set(jsonData.flatMap(item => Object.keys(item))));
+        
+    const cleanedData = jsonData.map(item =>
+      Object.fromEntries(allFields.map(field => [field, (item[field]?.trim() === 'NULL' ? 'NaN' : item[field]?.trim()) || 'NaN']))
+    );
 
-    setFilteredData(jsonData);
+    console.log(cleanedData);
+
+    setParsedData(cleanedData);
+
+    setFilteredData(cleanedData);
 
     const endTime = performance.now();
     console.log(`Conversion took ${(endTime - startTime)/1000} seconds`);
