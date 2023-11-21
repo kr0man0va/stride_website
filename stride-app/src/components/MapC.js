@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -6,11 +6,12 @@ import { Icon } from 'leaflet';
 
 import MarkerClusterGroup from 'react-leaflet-cluster';
 
-const MapC = ({filteredData}) => {
+const MapC = ({filteredData, favorites, setFavorites}) => {
 
-  const customIcon = new Icon({
+  const customIcon = (college) => new Icon({
     iconUrl: require('../images/Marker.png'),
-    iconSize: [38, 38]
+    iconSize: [38, 38],
+    className: favorites.some(fav => fav.Institution === college.Institution) ? 'yellow-icon' : ''
   });
 
   const colleges = {};
@@ -31,19 +32,49 @@ const MapC = ({filteredData}) => {
     }
   });
 
+  const addOrRemoveFavorite = (collegeName, major) => {
+    const newFavorites = [...favorites];
+    const index = newFavorites.findIndex(fav => fav.Institution === collegeName && fav.Major === major);
+  
+    console.log("Index is " + index);
+
+    if (index === -1) {
+      // Find the corresponding college in filteredData
+      const selectedCollege = filteredData.find(college => college.Institution === collegeName && college.Major === major);
+  
+      newFavorites.push(selectedCollege);
+      
+    } else {
+      newFavorites.splice(index, 1);
+    }
+  
+    setFavorites(newFavorites);
+  };
+
+  useEffect(() => {
+    console.log(favorites);
+  }, [favorites]);
+
   const popupContent = (college) => (
     <div>
       <h3>{college.Institution}</h3>
-      <p><span className="bolded">Type:</span> {college.Type}</p>
-      <p><span className='bolded'>In-State Tuition:</span> {college['In-State Tuition']}</p>
-      <p><span className='bolded'>Out-of-State Tuition:</span> {college['Out-of-State Tuition']}</p>
-      <p><span className='bolded'>Cost of Living Index:</span> {college['Cost Of Living Index']}</p>
-      <p><span className='bolded'>In-State ROI:</span> {college['In-State ROI']}</p>
-      <p><span className='bolded'>Out-of-State ROI:</span> {college['Out-of-State ROI']}</p>
+      <div className="centerPop">
+        <div>
+          <p><span className="bolded">Type:</span> {college.Type}</p>
+          <p><span className='bolded'>In-State Tuition:</span> {college['In-State Tuition']}</p>
+          <p><span className='bolded'>Out-of-State Tuition:</span> {college['Out-of-State Tuition']}</p>
+        </div>
+        <div>
+          <p><span className='bolded'>Cost of Living Index:</span> {college['Cost Of Living Index']}</p>
+          <p><span className='bolded'>In-State ROI:</span> {college['In-State ROI']}</p>
+          <p><span className='bolded'>Out-of-State ROI:</span> {college['Out-of-State ROI']}</p>
+        </div>
+      </div>
       <div className="tableCont">
       <table className="tablePop">
         <thead>
           <tr>
+            <th><span style={{fontSize:"200%",color:"yellow"}}>&#9733;</span></th>
             <th className='bolded'>Major</th>
             <th className='bolded'>Average Salary</th>
           </tr>
@@ -51,6 +82,12 @@ const MapC = ({filteredData}) => {
         <tbody>
           {college.majors.map((major, majorIndex) => (
             <tr key={majorIndex}>
+              <td>
+                <input
+                  type="checkbox"
+                  onChange={() => addOrRemoveFavorite(college.Institution, major.major)}
+                />
+              </td>
               <td>
                 <strong>{major.major}</strong>
               </td>
@@ -81,8 +118,9 @@ const MapC = ({filteredData}) => {
         <MarkerClusterGroup chunkedLoading={true}>
           {Object.values(colleges).map((marker) => (
               <Marker
+                key={marker.Institution}
                 position={[parseFloat(marker.Latitude), parseFloat(marker.Longitude)]}
-                icon={ customIcon }
+                icon={ customIcon(marker) }
               >
                 {/* <Popup>
                   <div>

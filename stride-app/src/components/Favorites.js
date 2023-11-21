@@ -4,9 +4,9 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
 import 'mdbreact/dist/css/mdb.css';
 
-const ROI = ({parsedData}) => {
+const Favorites = ({favorites}) => {
 
-  const columns = parsedData.length > 0 ? Object.keys(parsedData[0]).filter((key) => 
+  const columns = favorites.length > 0 ? Object.keys(favorites[0]).filter((key) => 
                   key.trim() !== 'Latitude' &&
                   key.trim() !== 'Longitude' &&
                   key.trim() !== 'CIPCODE' &&
@@ -20,16 +20,16 @@ const ROI = ({parsedData}) => {
     
   const data = {
     columns: columns,
-    rows: parsedData,
+    rows: favorites,
   };
     
   return (
-    <div id="roi">
-      {(parsedData.length > 0 ?
-        (<MDBDataTable responsive striped bordered small data={data} paging noBottomColumns={true}/>) :
-        (<p>No results were found. Please try again!</p>))}
+    <div id="fav">
+        {(favorites.length > 0 ?
+            (<MDBDataTable responsive striped bordered small data={data} paging noBottomColumns={true}/>) :
+            (<p>No favorite programs found. Please select a program from the map!</p>))} 
     </div>
   );
 };
 
-export default ROI;
+export default Favorites;
