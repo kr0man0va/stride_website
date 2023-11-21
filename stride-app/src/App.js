@@ -8,9 +8,11 @@ import Filters from "./components/Filters"
 import ROI from "./components/ROI"
 import Footer from "./components/Footer"
 import MapC from "./components/MapC"
+import Favorites from "./components/Favorites"
 
 import * as xlsx from "xlsx";
-import exampleFile from './context/state_M2019_dl.xlsx';
+// import exampleFile from './context/state_M2019_dl.xlsx';
+import exampleFile from './context/Stride_Funding_data.xlsx';
 
 function App() {
   
@@ -31,7 +33,9 @@ function App() {
 
   const [clicked, setClicked] = useState(false);
 
-  const [map, setMap] = useState(true);
+  const [view, setView] = useState('map');
+
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
     const startTime = performance.now();
@@ -45,9 +49,17 @@ function App() {
     const worksheet = workbook.Sheets[sheetName];
     const jsonData = xlsx.utils.sheet_to_json(worksheet, { raw: false });
 
-    setParsedData(jsonData);
+    const allFields = Array.from(new Set(jsonData.flatMap(item => Object.keys(item))));
+        
+    const cleanedData = jsonData.map(item =>
+      Object.fromEntries(allFields.map(field => [field, (item[field]?.trim() === 'NULL' ? 'NaN' : item[field]?.trim()) || 'NaN']))
+    );
 
-    setFilteredData(jsonData);
+    console.log(cleanedData);
+
+    setParsedData(cleanedData);
+
+    setFilteredData(cleanedData);
 
     const endTime = performance.now();
     console.log(`Conversion took ${(endTime - startTime)/1000} seconds`);
@@ -56,12 +68,16 @@ function App() {
     fetchData();
   }, []);
 
-  const newStyle = {
-    color: map ? 'rgb(86,29,226)' : 'rgb(133, 133, 133)',
-  };
+  // const newStyle = {
+  //   color: map ? 'rgb(86,29,226)' : 'rgb(133, 133, 133)',
+  // };
 
-  const newStyle2 = {
-    color: map ? 'rgb(133, 133, 133)' : 'rgb(86,29,226)',
+  // const newStyle2 = {
+  //   color: map ? 'rgb(133, 133, 133)' : 'rgb(86,29,226)',
+  // };
+
+  const handleSwitchView = (newView) => {
+    setView(newView);
   };
 
   return (
@@ -78,27 +94,38 @@ function App() {
       </div>
       <div id='changePlace'>
         <Filters parsedData={parsedData} setFilteredData={setFilteredData} setClicked={setClicked}/>
-      {/* {clicked ? ( */}
         <div style={{width:'100%'}}>
           <div className='dissapear'>
             <h1 id="res">View Results</h1>
-            {map ? (
-              <p>Explore your educational options by interacting with different markers on the map.</p>) : (
-              <p>Explore your educational options by viewing and searching the table.</p>)
-            }
+              <p>Explore your educational options by interacting with different markers on the map.</p>
           <hr className="solid2"></hr>
           </div>
           <div id="choose">
-            <h2 style={newStyle} onClick={() => setMap(true)}>Map</h2>
+            <button className="but1" onClick={() => handleSwitchView('map')}>Map</button>
+            {/* <h3>|</h3> */}
+            <button className="but2" onClick={() => handleSwitchView('table')}>Table</button>
+            {/* <h3>|</h3> */}
+            <button className="but3" onClick={() => handleSwitchView('favorites')}>Favorites</button>
+            
+            {/* <h2 style={newStyle} onClick={() => setMap(true)}>Map</h2>
             <h3>|</h3>
-            <h2 style={newStyle2} onClick={() => setMap(false)}>Table</h2>
+            <h2 style={newStyle2} onClick={() => setMap(false)}>Table</h2> */}
           </div>
-          {map ? (
-            <MapC filteredData={filteredData}/>
-          ) : (<ROI parsedData={filteredData} clicked={clicked}/>)}
+
+          <div className={`map-container ${view === 'map' ? '' : 'hidden'}`}>
+            <MapC filteredData={filteredData} favorites={favorites} setFavorites={setFavorites} />
+          </div>
+
+          <div className={`roi-container ${view === 'table' ? '' : 'hidden'}`}>
+            <ROI parsedData={filteredData}/>
+          </div>
+
+          <div className={`favorites-container ${view === 'favorites' ? '' : 'hidden'}`}>
+            <Favorites favorites={favorites} setFavorites={setFavorites} />
+          </div>
+
         </div>
     </div>
-      {/* ) : null} */}
       <Footer />
     </div>
   );

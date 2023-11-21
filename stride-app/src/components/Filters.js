@@ -14,27 +14,34 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
     const [state, setState] = useState('Show All');
     const [tuition, setTuition] = useState({min: 21000, max: 90000});
     const [costLiving, setCostLiving] = useState({min: 85, max: 180});
-    const [roi, setROI] = useState({min: 460, max: 1100});
+    const [roi, setROI] = useState({min: 0, max: 42000});
     const [salary, setSalary] = useState({min: 50000, max: 230000});
+
+    const [showNaN, setShowNaN] = useState(true);
 
     const types = [
         { value: 'Show All', label: 'Show All' },
-        { value: 'Public 2-year', label: 'Public 2-year' },
-        { value: 'Public 4-year', label: 'Public 4-year' },
-        { value: 'Private 2-year', label: 'Private 2-year' },
-        { value: 'Private 4-year', label: 'Private 4-year' },
-        { value: 'For-profit 2-year', label: 'For-profit 2-year' },
-        { value: 'For-profit 4-year', label: 'For-profit 4-year' }];
+        { value: 'Public', label: 'Public' },
+        { value: 'Private nonprofit', label: 'Private nonprofit' },
+        { value: 'Private for-profit', label: 'Private for-profit' }];
 
     const majors = ['Show All', 'Engineering', 'Computer Science', 'Biology', 'Business', 'Art', 'Marketing'];
 
     const states = [
-        'Show All', 'Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia',
-        'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland',
-        'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey',
-        'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina',
-        'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'
+        'Show All', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+        'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
+        'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
+        'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
+        'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
     ];
+
+    const cleanValue = str => {
+        if (typeof str === 'string' && str.trim() !== "") {
+            const cleanedValue = str.trim().replace(/[^0-9.-]+/g, "");
+            return isNaN(cleanedValue) ? NaN : parseInt(cleanedValue, 10);
+        }
+        return NaN;
+    };
 
     const handleApplyFilters = () => {
         const filtered = parsedData.filter(item => {
@@ -42,23 +49,23 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
             (educationType === 'Show All' || item["Type"] === (educationType)) &&
             (major === 'Show All' || item["Major"].includes(major)) &&
             (state === 'Show All' || item["State"] === (state)) &&
-            (parseInt(item["In-state Tuition"].replace(/[^0-9.-]+/g,"")) <= (tuition.max) && parseInt(item["In-state Tuition"].replace(/[^0-9.-]+/g,"")) >= (tuition.min)) &&
-            (parseInt(item["Cost of Living Index"].replace(/[^0-9.-]+/g,"")) <= (costLiving.max) && parseInt(item["Cost of Living Index"].replace(/[^0-9.-]+/g,"")) >= (costLiving.min)) &&
-            (parseInt(item["In-state ROI"].replace(/[^0-9.-]+/g,"")) <= (roi.max) && parseInt(item["In-state ROI"].replace(/[^0-9.-]+/g,"")) >= (roi.min)) &&
-            (parseInt(item["Average Salary"].replace(/[^0-9.-]+/g,"")) <= (salary.max) && parseInt(item["Average Salary"].replace(/[^0-9.-]+/g,"")) >= (salary.min))
-          );
+            ((showNaN && isNaN(cleanValue(item["In-State Tuition"]))) || 
+                (!isNaN(cleanValue(item["In-State Tuition"])) && cleanValue(item["In-State Tuition"]) <= (tuition.max) && cleanValue(item["In-State Tuition"]) >= (tuition.min)) &&
+            ((showNaN && isNaN(cleanValue(item["Cost Of Living Index"]))) || 
+                (!isNaN(cleanValue(item["Cost Of Living Index"])) && cleanValue(item["Cost Of Living Index"]) <= (costLiving.max) && cleanValue(item["Cost Of Living Index"]) >= (costLiving.min))) &&
+            ((showNaN && isNaN(cleanValue(item["In-State ROI"]))) || 
+                (!isNaN(cleanValue(item["In-State ROI"])) && cleanValue(item["In-State ROI"]) <= (roi.max) && cleanValue(item["In-State ROI"]) >= (roi.min))) &&
+            ((showNaN && isNaN(cleanValue(item["Average Salary"]))) || 
+                (!isNaN(cleanValue(item["Average Salary"])) && cleanValue(item["Average Salary"]) <= (salary.max) && cleanValue(item["Average Salary"]) >= (salary.min)))
+          ));
         });
         setClicked(true);
         setFilteredData(filtered);
+        console.log(filtered);
     };
 
     return(
         <div id="filters">
-            {/* <h1>Tell Us About Your Preferences</h1>
-            <h2>Fill out the fields below to receive your free return-on-investment calculations
-                for educational opportunities around United States. Press filter button to view 
-                your personalized results.
-            </h2> */}
             <hr className="solid dissapear"></hr>
             {/* Filter Program Type */}
             <div id="col">
@@ -148,24 +155,6 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                                     onChange={(value) => setTuition(value)}>       
                         </InputRange>
                     </div>
-                    {/* <div className="align">
-                        <div>
-                            <p>Minimum value</p>
-                            <input
-                                type="number"
-                                value={tuition.min}
-                                onChange={(e) => setTuition({ ...tuition, min: e.target.value })}
-                            />
-                        </div>
-                        <div>
-                            <p>Maximum value</p>
-                            <input
-                                type="number"
-                                value={tuition.max}
-                                onChange={(e) => setTuition({ ...tuition, max: e.target.value })}
-                            />
-                        </div>
-                    </div> */}
                 </div>
                 {/* Filter Cost of Living */}
                 <div className="alignSlider">
@@ -185,16 +174,6 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                                 onChange={(value) => setCostLiving(value)}>       
                     </InputRange>
                 </div>
-                {/* <input
-                    type="number"
-                    value={costLiving.min}
-                    onChange={(e) => setCostLiving({ ...costLiving, min: e.target.value })}
-                />
-                <input
-                    type="number"
-                    value={costLiving.max}
-                    onChange={(e) => setCostLiving({ ...costLiving, max: e.target.value })}
-                /> */}
                 {/* Filter Salary */}
                 <div className="alignSlider">
                         <div className="align">
@@ -224,23 +203,21 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                                     "
                                     data-tooltip-place="top"/>
                         </div> 
-                    <InputRange maxValue={1200}
+                    <InputRange maxValue={42000}
                                 minValue={0}
                                 value={roi}
                                 allowSameValues
                                 onChange={(value) => setROI(value)}>       
                     </InputRange>
                 </div>
-                {/* <input
-                    type="number"
-                    value={roi.min}
-                    onChange={(e) => setROI({ ...roi, min: e.target.value })}
-                />
-                <input
-                    type="number"
-                    value={roi.max}
-                    onChange={(e) => setROI({ ...roi, max: e.target.value })}
-                /> */}
+                <div className="check">
+                    <h3>Would you like to show NaN values?</h3>
+                    <input
+                        type="checkbox"
+                        checked={showNaN}
+                        onChange={() => setShowNaN(!showNaN)}
+                    />
+                </div>
             </div>
             <hr className="solid dissapear"></hr>
             <button onClick={handleApplyFilters}>Filter</button>
