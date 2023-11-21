@@ -17,6 +17,8 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
     const [roi, setROI] = useState({min: 0, max: 42000});
     const [salary, setSalary] = useState({min: 50000, max: 230000});
 
+    const [showNaN, setShowNaN] = useState(true);
+
     const types = [
         { value: 'Show All', label: 'Show All' },
         { value: 'Public', label: 'Public' },
@@ -47,11 +49,15 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
             (educationType === 'Show All' || item["Type"] === (educationType)) &&
             (major === 'Show All' || item["Major"].includes(major)) &&
             (state === 'Show All' || item["State"] === (state)) &&
-            (!isNaN(cleanValue(item["In-State Tuition"])) && cleanValue(item["In-State Tuition"]) <= (tuition.max) && cleanValue(item["In-State Tuition"]) >= (tuition.min)) &&
-            (!isNaN(cleanValue(item["Cost Of Living Index"])) && cleanValue(item["Cost Of Living Index"]) <= (costLiving.max) && cleanValue(item["Cost Of Living Index"]) >= (costLiving.min)) &&
-            (!isNaN(cleanValue(item["In-State ROI"])) && cleanValue(item["In-State ROI"]) <= (roi.max) && cleanValue(item["In-State ROI"]) >= (roi.min)) &&
-            (!isNaN(cleanValue(item["Average Salary"])) && cleanValue(item["Average Salary"]) <= (salary.max) && cleanValue(item["Average Salary"]) >= (salary.min))
-          );
+            ((showNaN && isNaN(cleanValue(item["In-State Tuition"]))) || 
+                (!isNaN(cleanValue(item["In-State Tuition"])) && cleanValue(item["In-State Tuition"]) <= (tuition.max) && cleanValue(item["In-State Tuition"]) >= (tuition.min)) &&
+            ((showNaN && isNaN(cleanValue(item["Cost Of Living Index"]))) || 
+                (!isNaN(cleanValue(item["Cost Of Living Index"])) && cleanValue(item["Cost Of Living Index"]) <= (costLiving.max) && cleanValue(item["Cost Of Living Index"]) >= (costLiving.min))) &&
+            ((showNaN && isNaN(cleanValue(item["In-State ROI"]))) || 
+                (!isNaN(cleanValue(item["In-State ROI"])) && cleanValue(item["In-State ROI"]) <= (roi.max) && cleanValue(item["In-State ROI"]) >= (roi.min))) &&
+            ((showNaN && isNaN(cleanValue(item["Average Salary"]))) || 
+                (!isNaN(cleanValue(item["Average Salary"])) && cleanValue(item["Average Salary"]) <= (salary.max) && cleanValue(item["Average Salary"]) >= (salary.min)))
+          ));
         });
         setClicked(true);
         setFilteredData(filtered);
@@ -149,24 +155,6 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                                     onChange={(value) => setTuition(value)}>       
                         </InputRange>
                     </div>
-                    {/* <div className="align">
-                        <div>
-                            <p>Minimum value</p>
-                            <input
-                                type="number"
-                                value={tuition.min}
-                                onChange={(e) => setTuition({ ...tuition, min: e.target.value })}
-                            />
-                        </div>
-                        <div>
-                            <p>Maximum value</p>
-                            <input
-                                type="number"
-                                value={tuition.max}
-                                onChange={(e) => setTuition({ ...tuition, max: e.target.value })}
-                            />
-                        </div>
-                    </div> */}
                 </div>
                 {/* Filter Cost of Living */}
                 <div className="alignSlider">
@@ -186,16 +174,6 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                                 onChange={(value) => setCostLiving(value)}>       
                     </InputRange>
                 </div>
-                {/* <input
-                    type="number"
-                    value={costLiving.min}
-                    onChange={(e) => setCostLiving({ ...costLiving, min: e.target.value })}
-                />
-                <input
-                    type="number"
-                    value={costLiving.max}
-                    onChange={(e) => setCostLiving({ ...costLiving, max: e.target.value })}
-                /> */}
                 {/* Filter Salary */}
                 <div className="alignSlider">
                         <div className="align">
@@ -232,16 +210,14 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                                 onChange={(value) => setROI(value)}>       
                     </InputRange>
                 </div>
-                {/* <input
-                    type="number"
-                    value={roi.min}
-                    onChange={(e) => setROI({ ...roi, min: e.target.value })}
-                />
-                <input
-                    type="number"
-                    value={roi.max}
-                    onChange={(e) => setROI({ ...roi, max: e.target.value })}
-                /> */}
+                <div className="check">
+                    <h3>Would you like to show NaN values?</h3>
+                    <input
+                        type="checkbox"
+                        checked={showNaN}
+                        onChange={() => setShowNaN(!showNaN)}
+                    />
+                </div>
             </div>
             <hr className="solid dissapear"></hr>
             <button onClick={handleApplyFilters}>Filter</button>
