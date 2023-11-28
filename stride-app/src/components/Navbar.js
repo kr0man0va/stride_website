@@ -16,10 +16,7 @@ const Navbar = () => {
                     <a href="#instructions">Instructions</a>
                 </li>
                 <li>
-                    <a href="#filters">Form</a>
-                </li>
-                <li>
-                    <a href="#roi">ROI</a>
+                    <a href="#filters">Explore ROI</a>
                 </li>
             </ul>
         </nav>

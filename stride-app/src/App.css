@@ -161,8 +161,8 @@ html {
 
 #steps div {
   width: 30%;
-  padding: 5rem 1% 0rem 1%;
-  margin: 0% 4%;
+  margin: 0% 2%;
+  margin-top: 4rem;
 }
 
 #filters {
@@ -466,6 +466,55 @@ html {
   margin: 10px 10px 10px 0px;
 }
 
+.allAbout {
+  text-align: left;
+  padding: 20px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  flex: 1;
+}
+
+.allAbout div {
+  width: 150px;
+  flex-basis: 150px;
+  flex-grow: 1;
+  background-color: rgb(245,245,245);
+  border-radius: 30px;
+  margin: 0 2%;
+  padding: 30px;
+}
+
+.allAbout div:hover {
+  box-shadow: -2px -2px 5px rgb(242,207,67), 2px 2px 5px rgb(86,29,226);
+}
+
+.allAbout div:hover h2 {
+  color: rgb(86,29,226);
+}
+
+#about h1 {
+  color: rgb(86,29,226);
+  font-size: 3rem;
+  font-weight: 400;
+  margin-top: 4rem;
+}
+
+.allAbout div h2 {
+  font-size: 2rem;
+  font-weight: 500;
+  padding-bottom: 20px;
+  margin: 0;
+}
+
+.allAbout div p {
+  font-size: 1.2rem;
+}
+
+.allAbout img {
+  width: 100%;
+}
+
 @media (max-width: 1300px) {
   #changePlace {
     flex-direction: column;
@@ -510,5 +559,13 @@ html {
 
   .but3 {
     margin-right: 0;
+  }
+
+  #fav {
+    margin-left: 10px;
+  }
+
+  #roi {
+    margin-left: 10px;
   }
 }
