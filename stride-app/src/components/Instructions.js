@@ -11,7 +11,7 @@ const Instructions = () => {
                 </div>
                 <div>
                     <h2>Explore What's Available</h2>
-                    <p>Explore and evaluate diverse selection of programs and potential employers.</p>
+                    <p>Explore and evaluate diverse selection of programs.</p>
                 </div>
                 <div>
                     <h2>Save and Compare</h2>

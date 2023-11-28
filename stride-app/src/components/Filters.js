@@ -7,7 +7,7 @@ import Select from 'react-select';
 import { Tooltip } from 'react-tooltip';
 import question from '../images/Question.png';
 
-const Filters = ({parsedData, setFilteredData, setClicked}) => {
+const Filters = ({parsedData, setFilteredData}) => {
     
     const [educationType, setEducationType] = useState('Show All');
     const [major, setMajor] = useState('Show All');
@@ -17,7 +17,7 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
     const [roi, setROI] = useState({min: 0, max: 42000});
     const [salary, setSalary] = useState({min: 50000, max: 230000});
 
-    const [showNaN, setShowNaN] = useState(true);
+    const [showNaN, setShowNaN] = useState(false);
 
     const types = [
         { value: 'Show All', label: 'Show All' },
@@ -49,17 +49,16 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
             (educationType === 'Show All' || item["Type"] === (educationType)) &&
             (major === 'Show All' || item["Major"].includes(major)) &&
             (state === 'Show All' || item["State"] === (state)) &&
-            ((showNaN && isNaN(cleanValue(item["In-State Tuition"]))) || 
-                (!isNaN(cleanValue(item["In-State Tuition"])) && cleanValue(item["In-State Tuition"]) <= (tuition.max) && cleanValue(item["In-State Tuition"]) >= (tuition.min)) &&
-            ((showNaN && isNaN(cleanValue(item["Cost Of Living Index"]))) || 
-                (!isNaN(cleanValue(item["Cost Of Living Index"])) && cleanValue(item["Cost Of Living Index"]) <= (costLiving.max) && cleanValue(item["Cost Of Living Index"]) >= (costLiving.min))) &&
-            ((showNaN && isNaN(cleanValue(item["In-State ROI"]))) || 
-                (!isNaN(cleanValue(item["In-State ROI"])) && cleanValue(item["In-State ROI"]) <= (roi.max) && cleanValue(item["In-State ROI"]) >= (roi.min))) &&
-            ((showNaN && isNaN(cleanValue(item["Average Salary"]))) || 
-                (!isNaN(cleanValue(item["Average Salary"])) && cleanValue(item["Average Salary"]) <= (salary.max) && cleanValue(item["Average Salary"]) >= (salary.min)))
-          ));
+            (((showNaN && isNaN(cleanValue(item["In-State Tuition"]))) || 
+                (!isNaN(cleanValue(item["In-State Tuition"])) && cleanValue(item["In-State Tuition"]) <= (tuition.max) && cleanValue(item["In-State Tuition"]) >= (tuition.min))) &&
+            (((showNaN && isNaN(cleanValue(item["Cost Of Living Index"]))) || 
+                (!isNaN(cleanValue(item["Cost Of Living Index"])) && cleanValue(item["Cost Of Living Index"]) <= (costLiving.max) && cleanValue(item["Cost Of Living Index"]) >= (costLiving.min)))) &&
+            (((showNaN && isNaN(cleanValue(item["In-State ROI"]))) || 
+                (!isNaN(cleanValue(item["In-State ROI"])) && cleanValue(item["In-State ROI"]) <= (roi.max) && cleanValue(item["In-State ROI"]) >= (roi.min)))) &&
+            (((showNaN && isNaN(cleanValue(item["Average Salary"]))) || 
+                (!isNaN(cleanValue(item["Average Salary"])) && cleanValue(item["Average Salary"]) <= (salary.max) && cleanValue(item["Average Salary"]) >= (salary.min))))
+            ));
         });
-        setClicked(true);
         setFilteredData(filtered);
         console.log(filtered);
     };
@@ -211,7 +210,7 @@ const Filters = ({parsedData, setFilteredData, setClicked}) => {
                     </InputRange>
                 </div>
                 <div className="check">
-                    <h3>Would you like to show NaN values?</h3>
+                    <h3>Show not available values?</h3>
                     <input
                         type="checkbox"
                         checked={showNaN}

@@ -9,72 +9,72 @@ import ROI from "./components/ROI"
 import Footer from "./components/Footer"
 import MapC from "./components/MapC"
 import Favorites from "./components/Favorites"
+import About from "./components/AboutROI"
 
 import * as xlsx from "xlsx";
-// import exampleFile from './context/state_M2019_dl.xlsx';
+
 import exampleFile from './context/Stride_Funding_data.xlsx';
 
 function App() {
-  
-  // Attach the scroll listener to the div
-  useEffect(() => {
-      const menu = document.querySelector('.nav');
-      if(menu) {
-      window.addEventListener('scroll', () => {
-        if(window.scrollY > 50) {
-            menu.classList.add('nav-scrolled');
-        } else if (window.scrollY < 50) {
-            menu.classList.remove('nav-scrolled');
-        }
-  })}})
 
   const [parsedData, setParsedData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
-
-  const [clicked, setClicked] = useState(false);
-
   const [view, setView] = useState('map');
-
   const [favorites, setFavorites] = useState([]);
-
+  
   useEffect(() => {
-    const startTime = performance.now();
+    // Attach the scroll listener to the div
+    const menu = document.querySelector('.nav');
+    if(menu) {
+      window.addEventListener('scroll', () => {
+        if(window.scrollY > 50) {
+          menu.classList.add('nav-scrolled');
+        } else if (window.scrollY < 50) {
+          menu.classList.remove('nav-scrolled');
+        }
+      })
+    }
+
+    // Get data
     const fetchData = async () => {
-    const response = await fetch(exampleFile);
-    const arrayBuffer = await response.arrayBuffer();
-    const data = new Uint8Array(arrayBuffer);
+      const startTime = performance.now();
 
-    const workbook = xlsx.read(data, { type: 'array' });
-    const sheetName = workbook.SheetNames[6];
-    const worksheet = workbook.Sheets[sheetName];
-    const jsonData = xlsx.utils.sheet_to_json(worksheet, { raw: false });
+      const response = await fetch(exampleFile);
+      const arrayBuffer = await response.arrayBuffer();
+      const data = new Uint8Array(arrayBuffer);
 
-    const allFields = Array.from(new Set(jsonData.flatMap(item => Object.keys(item))));
-        
-    const cleanedData = jsonData.map(item =>
-      Object.fromEntries(allFields.map(field => [field, (item[field]?.trim() === 'NULL' ? 'NaN' : item[field]?.trim()) || 'NaN']))
-    );
+      const workbook = xlsx.read(data, { type: 'array' });
+      const sheetName = workbook.SheetNames[6];
+      const worksheet = workbook.Sheets[sheetName];
+      const jsonData = xlsx.utils.sheet_to_json(worksheet, { raw: false });
 
-    console.log(cleanedData);
+      const allFields = Array.from(new Set(jsonData.flatMap(item => Object.keys(item))));
+          
+      const cleanedData = jsonData.map(item =>
+        Object.fromEntries(allFields.map(field => [field, (item[field]?.trim() === 'NULL' ? 'NaN' : item[field]?.trim()) || 'NaN']))
+      );
 
-    setParsedData(cleanedData);
+      setParsedData(cleanedData);
 
-    setFilteredData(cleanedData);
+      const noNaNData = cleanedData.filter(item => {
+        for (const key in item) {
+          if (item[key] === "NaN") {
+            return false; // Exclude the item if it contains "NaN"
+          }
+        }
+        return true; // Include the item if it does not contain "NaN"
+      });
 
-    const endTime = performance.now();
-    console.log(`Conversion took ${(endTime - startTime)/1000} seconds`);
+      setFilteredData(noNaNData);
+
+      const endTime = performance.now();
+    
+      console.log(`Conversion took ${(endTime - startTime)/1000} seconds`);
     };
     
     fetchData();
+
   }, []);
-
-  // const newStyle = {
-  //   color: map ? 'rgb(86,29,226)' : 'rgb(133, 133, 133)',
-  // };
-
-  // const newStyle2 = {
-  //   color: map ? 'rgb(133, 133, 133)' : 'rgb(86,29,226)',
-  // };
 
   const handleSwitchView = (newView) => {
     setView(newView);
@@ -85,6 +85,7 @@ function App() {
       <Navbar />
       <Description />
       <Instructions />
+      <About />
       <div id='styleHeading'>
         <h1>What do you want to explore?</h1>
         <h2>Fill out the fields below to receive your free return-on-investment calculations
@@ -93,7 +94,7 @@ function App() {
         </h2>
       </div>
       <div id='changePlace'>
-        <Filters parsedData={parsedData} setFilteredData={setFilteredData} setClicked={setClicked}/>
+        <Filters parsedData={parsedData} setFilteredData={setFilteredData}/>
         <div style={{width:'100%'}}>
           <div className='dissapear'>
             <h1 id="res">View Results</h1>
@@ -102,14 +103,8 @@ function App() {
           </div>
           <div id="choose">
             <button className="but1" onClick={() => handleSwitchView('map')}>Map</button>
-            {/* <h3>|</h3> */}
             <button className="but2" onClick={() => handleSwitchView('table')}>Table</button>
-            {/* <h3>|</h3> */}
             <button className="but3" onClick={() => handleSwitchView('favorites')}>Favorites</button>
-            
-            {/* <h2 style={newStyle} onClick={() => setMap(true)}>Map</h2>
-            <h3>|</h3>
-            <h2 style={newStyle2} onClick={() => setMap(false)}>Table</h2> */}
           </div>
 
           <div className={`map-container ${view === 'map' ? '' : 'hidden'}`}>

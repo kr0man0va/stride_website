@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState, useMemo, useCallback} from 'react';
 
 import 'leaflet/dist/leaflet.css';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
@@ -8,35 +8,41 @@ import MarkerClusterGroup from 'react-leaflet-cluster';
 
 const MapC = ({filteredData, favorites, setFavorites}) => {
 
-  const customIcon = (college) => new Icon({
-    iconUrl: require('../images/Marker.png'),
-    iconSize: [38, 38],
-    className: favorites.some(fav => fav.Institution === college.Institution) ? 'yellow-icon' : ''
-  });
+  const [colleges, setColleges] = useState({});
 
-  const colleges = {};
+  useEffect(() => {
+    const collectedColleges = {};
 
-  // Collect data for each college
-  filteredData.forEach((marker) => {
-    if (marker.Latitude !== 'NaN' && marker.Longitude !== 'NaN') {
-      if (!colleges[marker.Institution]) {
-        colleges[marker.Institution] = {
-          ...marker,
-          majors: [],
-        };
+    // Collect data for each college
+    filteredData.forEach((marker) => {
+      if (marker.Latitude !== 'NaN' && marker.Longitude !== 'NaN') {
+        if (!collectedColleges[marker.Institution]) {
+          collectedColleges[marker.Institution] = {
+            ...marker,
+            majors: [],
+          };
+        }
+        collectedColleges[marker.Institution].majors.push({
+          major: marker.Major,
+          salary: marker['Average Salary'],
+        });
       }
-      colleges[marker.Institution].majors.push({
-        major: marker.Major,
-        salary: marker['Average Salary'],
-      });
-    }
-  });
+    });
 
-  const addOrRemoveFavorite = (collegeName, major) => {
+    setColleges(Object.values(collectedColleges));
+  }, [filteredData]);
+
+  const customIcon = useMemo(() => {
+    return (college) => new Icon({
+      iconUrl: require('../images/Marker.png'),
+      iconSize: [38, 38],
+      className: favorites.some(fav => fav.Institution === college.Institution) ? 'yellow-icon' : ''
+    });
+  }, [favorites]);
+
+  const addOrRemoveFavorite = useCallback((collegeName, major) => {
     const newFavorites = [...favorites];
     const index = newFavorites.findIndex(fav => fav.Institution === collegeName && fav.Major === major);
-  
-    console.log("Index is " + index);
 
     if (index === -1) {
       // Find the corresponding college in filteredData
@@ -49,13 +55,11 @@ const MapC = ({filteredData, favorites, setFavorites}) => {
     }
   
     setFavorites(newFavorites);
-  };
+  }, [favorites, setFavorites, filteredData]);
 
-  useEffect(() => {
-    console.log(favorites);
-  }, [favorites]);
-
-  const popupContent = (college) => (
+  const popupContent = useMemo( () => (college) => {
+    // console.log("boo");
+    return(
     <div>
       <h3>{college.Institution}</h3>
       <div className="centerPop">
@@ -99,16 +103,12 @@ const MapC = ({filteredData, favorites, setFavorites}) => {
         </tbody>
       </table>
     </div>
-    </div>
-  );
+    </div>);
+}, [addOrRemoveFavorite]);
     
   return (
     <div id='mapc'>
       <MapContainer preferCanvas={true} center={[37.0902, -95.7129]} zoom={4}>
-        {/* <TileLayer
-          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png">
-        </TileLayer> */}
 
         <TileLayer
           attribution="CartoDB Voyager"
@@ -116,32 +116,21 @@ const MapC = ({filteredData, favorites, setFavorites}) => {
         />
 
         <MarkerClusterGroup chunkedLoading={true}>
-          {Object.values(colleges).map((marker) => (
+          {Object.values(colleges).map((marker) => {
+            // console.log("Marker");
+            return(
               <Marker
                 key={marker.Institution}
                 position={[parseFloat(marker.Latitude), parseFloat(marker.Longitude)]}
                 icon={ customIcon(marker) }
               >
-                {/* <Popup>
-                  <div>
-                    <h3>{marker.Institution}</h3>
-                    <p><span className='bolded'>Type:</span> {marker.Type}</p>
-                    <p><span className='bolded'>Major:</span> {marker.Major}</p>
-                    <p><span className='bolded'>In-State Tuition:</span> {marker['In-State Tuition']}</p>
-                    <p><span className='bolded'>Out-Of-State Tuition:</span> {marker['Out-Of-State Tuition']}</p>
-                    <p><span className='bolded'>Cost of Living Index:</span> {marker['Cost Of Living Index']}</p>
-                    <p><span className='bolded'>Average Salary:</span> {marker['Average Salary']}</p>
-                    <p><span className='bolded'>In-State ROI:</span> {marker['In-State ROI']}</p>
-                    <p><span className='bolded'>In-State ROI:</span> {marker['Out-Of-State ROI']}</p>
-                  </div>
-                </Popup> */}
                 <Popup maxWidth={400} minWidth={400}>{popupContent(marker)}</Popup>
               </Marker>
-            ))}
+            )})}
           </MarkerClusterGroup>
       </MapContainer>
     </div>
   );
 };
 
-export default MapC;
+export default React.memo(MapC);
