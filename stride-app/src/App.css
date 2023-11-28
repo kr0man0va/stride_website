@@ -515,6 +515,35 @@ html {
   width: 100%;
 }
 
+.emailForm {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.emailForm label {
+  margin: 0;
+  font-weight: 400;
+}
+
+#button {
+  background-color: rgb(66,133,244);
+  color: white;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  font-size: 1rem;
+}
+
+#inputE {
+  background-color: rgb(66,133,244, 0.1);
+  padding: 5px 10px;
+  border-color: rgb(66,133,244);
+  border-radius: 3px;
+  font-size: 1rem;
+} 
+
 @media (max-width: 1300px) {
   #changePlace {
     flex-direction: column;
