@@ -4,6 +4,20 @@ The Stride Funding web tool allows students to explore educational programs and 
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Login Access
+
+EmailJs requires an account and can only send up to 200 emails each month.
+Sending more emails would require a paid account.
+
+EmailJs and the email used to create an account share the same password. This email can be changed/editted/deleted based on Stride's preferences.
+
+Login: stride.funding.test@gmail.com
+Password: 1234stride
+
+## Website Dependencies
+
+Website dependencies can be found in package.json file.
+
 ## Available Scripts
 
 In the project directory, you can run:

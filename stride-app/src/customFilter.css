@@ -21,3 +21,20 @@
 .input-range {
     margin-top: 1rem;
 }
+
+.input-range__track {
+    background: #D3D3D3;
+}
+
+.input-range__track--active {
+    background: #5E17EB;
+}
+
+.input-range__slider {
+    background: #5E17EB;
+    border: 1px solid #5E17EB;
+}
+
+.input-range__label {
+    color: #808080;
+}

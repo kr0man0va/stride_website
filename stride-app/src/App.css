@@ -23,7 +23,7 @@ body {
   top: 0;
   width: 100%;
   transition: all 0.5s;
-  z-index: 1000;
+  z-index: 1010;
 }
 
 .nav-scrolled {
@@ -111,7 +111,8 @@ html {
 }
 
 #name {
-  font-weight: 400;
+  font-weight: 500;
+  font-size: 1.4rem;
 }
 
 .text {
@@ -203,12 +204,14 @@ html {
   margin: 0;
   padding-bottom: 1rem;
   color: rgb(86,29,226);
-  margin-top: 5rem;
+  margin-top: 2rem;
 }
 
 #styleHeading h2 {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
   padding-bottom: 2rem;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
 #filters h3 {
@@ -318,6 +321,10 @@ html {
   padding-right: 10px;
 }
 
+#mapc h3 {
+  color:#5E17EB;
+}
+
 .leaflet-container {
   height: 89%;
 }
@@ -338,12 +345,16 @@ html {
 }
 
 #filters h2 {
-  font-size: 1.5rem;
-  font-weight: 400;
+  font-size: 1.4rem;
+  font-weight: 500;
   background-color: rgb(86,29,226, 0.2);
   color: rgb(86,29,226);
   padding: 10px;
   border-radius: 30px;
+}
+
+#filters img {
+  filter: grayscale(100%) opacity(80%);
 }
 
 .tableCont {
@@ -467,7 +478,7 @@ html {
 }
 
 .allAbout {
-  text-align: left;
+  text-align: center;
   padding: 20px;
   display: flex;
   flex-direction: row;
@@ -528,7 +539,7 @@ html {
 }
 
 #button {
-  background-color: rgb(66,133,244);
+  background-color: #5E17EB;
   color: white;
   padding: 5px 10px;
   border: none;
@@ -537,9 +548,9 @@ html {
 }
 
 #inputE {
-  background-color: rgb(66,133,244, 0.1);
+  background-color: rgba(128, 66, 244, 0.1);
   padding: 5px 10px;
-  border-color: rgb(66,133,244);
+  border-color: #5E17EB;
   border-radius: 3px;
   font-size: 1rem;
 } 
@@ -572,13 +583,22 @@ html {
     flex-direction: column;
   }
 
+  .dissapear p {
+    font-size: 1.3rem;
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+
   #col {
     margin-bottom: 0px;
   }
 
   #styleHeading h2 {
-    font-size: 1.5rem;
+    font-size: 1.4rem;
     padding-bottom: 1rem;
+    min-width: 800px;
+    max-width: 900px;
+    margin: auto;
   }
 
   #choose {
@@ -597,4 +617,33 @@ html {
   #roi {
     margin-left: 10px;
   }
+
+  #description {
+    background-image: none;
+    min-height: 40rem;
+  }
+
+  .text {
+    text-align: center;
+    max-width: 40rem;
+    margin: 0;
+    margin-top: 60px;
+  }
+
+  .allAbout {
+    display: flex;
+    flex-direction: column;
+    max-width: 1150px;
+    padding-right: 60px;
+    padding-left: 60px;
+    margin: 0 auto 0 auto;
+    min-width: 800px;
+    width: 45%;
+  }
+
+  .allAbout div {
+    width: auto;
+    margin-bottom: 40px;
+  }
+
 }
