@@ -78,7 +78,7 @@ const MapC = ({filteredData, favorites, setFavorites}) => {
       <table className="tablePop">
         <thead>
           <tr>
-            <th><span style={{fontSize:"200%",color:"yellow"}}>&#9733;</span></th>
+            <th><span style={{fontSize:"200%",color:"white", borderRadius:"5px"}}>&#9733;</span></th>
             <th className='bolded'>Major</th>
             <th className='bolded'>Average Salary</th>
           </tr>

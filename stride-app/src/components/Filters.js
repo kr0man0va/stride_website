@@ -25,7 +25,7 @@ const Filters = ({parsedData, setFilteredData}) => {
         { value: 'Private nonprofit', label: 'Private nonprofit' },
         { value: 'Private for-profit', label: 'Private for-profit' }];
 
-    const majors = ['Show All', 'Engineering', 'Computer Science', 'Biology', 'Business', 'Art', 'Marketing'];
+    const majors = ['Show All', 'Engineering', 'Computer Science', 'Biology', 'Business', 'Art', 'Marketing', 'History', 'Business', 'Literature', 'Accounting', 'Nursing', 'Teacher Education', 'Mathematics', 'Chemistry', 'Communication', 'Government', 'Music', 'Sociology', 'Criminal Justice'];
 
     const states = [
         'Show All', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
@@ -60,7 +60,6 @@ const Filters = ({parsedData, setFilteredData}) => {
             ));
         });
         setFilteredData(filtered);
-        console.log(filtered);
     };
 
     return(
@@ -68,7 +67,7 @@ const Filters = ({parsedData, setFilteredData}) => {
             <hr className="solid dissapear"></hr>
             {/* Filter Program Type */}
             <div id="col">
-                <h2>What program are you interested in?</h2>
+                <h2>WHAT PROGRAM ARE YOU INTERESTED IN?</h2>
                 <div id="drops">
                     <div className="filter">
                         <div className="align">
@@ -135,7 +134,7 @@ const Filters = ({parsedData, setFilteredData}) => {
                 </div>
                 {/* Filter Tuition */}
                 <div>
-                    <h2>Refine your search</h2>
+                    <h2>REFINE YOUR SEARCH</h2>
                     <div className="alignSlider">
                         <div className="align">
                             <h3>Tuition</h3>
@@ -188,6 +187,7 @@ const Filters = ({parsedData, setFilteredData}) => {
                                 minValue={0}
                                 value={salary}
                                 allowSameValues
+                                formatLabel={(value) => `$${value}`}
                                 onChange={(value) => setSalary(value)}>       
                     </InputRange>
                 </div>
@@ -219,7 +219,7 @@ const Filters = ({parsedData, setFilteredData}) => {
                 </div>
             </div>
             <hr className="solid dissapear"></hr>
-            <button onClick={handleApplyFilters}>Filter</button>
+            <button onClick={handleApplyFilters}>Apply Filter(s)</button>
         </div>
     );
 }

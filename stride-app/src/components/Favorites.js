@@ -6,6 +6,8 @@ import 'mdbreact/dist/css/mdb.css';
 
 import Email from "../components/Email.js";
 
+import '../Extra.css';
+
 const Favorites = ({favorites}) => {
 
   const columns = favorites.length > 0 ? Object.keys(favorites[0]).filter((key) => 

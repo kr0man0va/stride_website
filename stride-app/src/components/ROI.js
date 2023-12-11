@@ -30,6 +30,7 @@ const ROI = ({parsedData}) => {
         (<p>No results were found. Please try again!</p>))}
     </div>
   );
+
 };
 
 export default ROI;

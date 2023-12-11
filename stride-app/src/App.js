@@ -37,8 +37,6 @@ function App() {
 
     // Get data
     const fetchData = async () => {
-      const startTime = performance.now();
-
       const response = await fetch(exampleFile);
       const arrayBuffer = await response.arrayBuffer();
       const data = new Uint8Array(arrayBuffer);
@@ -66,10 +64,6 @@ function App() {
       });
 
       setFilteredData(noNaNData);
-
-      const endTime = performance.now();
-    
-      console.log(`Conversion took ${(endTime - startTime)/1000} seconds`);
     };
     
     fetchData();
@@ -89,7 +83,7 @@ function App() {
       <div id='styleHeading'>
         <h1>What do you want to explore?</h1>
         <h2>Fill out the fields below to receive your free return-on-investment calculations
-            for educational opportunities around United States. Press filter button to view 
+            for educational opportunities around United States. <br></br>Press filter button to view 
             your personalized results.
         </h2>
       </div>
